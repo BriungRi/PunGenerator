@@ -2,6 +2,8 @@ import nltk
 import enchant
 import wordprocessing
 import requests
+import random
+import time
 from nltk.stem import PorterStemmer
 
 def truncate(word):
@@ -21,26 +23,36 @@ def similars(listSyllables):
     similars = set()
     for word in listSyllables:
         d = enchant.Dict("en_US")
-        ps = PorterStemmer()
-        for w in d.suggest(ps.stem(word)):
+        # ps = PorterStemmer()
+        for w in d.suggest(word):
             similars.add(w.lower())
     return(similars)
 
-def clean(list):
+def clean(list, word):
     cleaned = []
     for i in list:
-        if len(i) > 3:
+        if len(i) > 1 and i in word.lower():
             cleaned.append(i)
     return(cleaned)
 
-def generateSentence(list):
-    sentence = ""
-    i = 0
-    while(sentence == ""):
-        print(list[i])
-        sentence += wordprocessing.getSentence(list[i])
-        i += 1
-    return sentence
+def generateSent(list, word):
+    origsentence = ""
+    newList = []
+    for i in list:
+        newList.append(i)
+    # # newsentence = ""
+    newWord = ""
+    while(origsentence == ""):
+        i = random.randint(0, len(newList) - 1)
+        newWord = newList[i]
+        origsentence += wordprocessing.getSentence(newWord) #TODO fix this line
+        time.sleep(5) #delayed for time to process
+        print(newWord)
+    # # indexOf = origsentence.find(newWord) - 1
+    # # newsentence = origsentence[0:indexOf] + word + origsentence[indexOf + len(newWord):]
+    # # return(origsentence + "\n" + newsentence)
+    return origsentence
 
-# print(clean(similars(truncate("Almighty"))))
-print(generateSentence(clean(similars(truncate("Almighty")))))
+def generate(word):
+    # print(clean(similars(truncate(word)), word))
+    return(generateSent(clean(similars(truncate(word)), word), word))
