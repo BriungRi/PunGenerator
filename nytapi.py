@@ -1,6 +1,5 @@
 import requests
 import json
-
 def search(name):
     data = {'q' : name,
           'begin_date' : '20150101',
@@ -13,14 +12,15 @@ def search(name):
 
 
 def jsonparser(jsondata, toFind):           #jsondata - string of json to parse  #toFind - parameter to find
-    print("Number of results: ", jsondata.count(toFind))
+    urls = []
     while(jsondata.find(toFind) > 0):
         spacing = len(toFind) + 4
         x = jsondata.find(toFind)
         jsondata = jsondata[x + spacing:len(jsondata)]
         indexEnd = jsondata.find("\'")
         strurl = jsondata[0:indexEnd]
-        print(strurl)
+        urls.append(strurl)
+    return urls
 
-
-jsonparser(search("Technology"), "web_url")
+def getURLS(topic):
+    return(jsonparser(search(topic), "web_url"))
