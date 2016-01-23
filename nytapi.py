@@ -21,7 +21,7 @@ def jsonparser(jsondata, toFind):           #jsondata - string of json to parse 
     while(jsondata.find(toFind) > 0):
         spacing = len(toFind) + 4
         x = jsondata.find(toFind)
-        jsondata = jsondata[x + spacing:len(jsondata)]
+        jsondata = jsondata[x + spacing:len(jsondata)]  #length fix?
         indexEnd = jsondata.find("\'")
         strurl = jsondata[0:indexEnd]
         urls.append(strurl)

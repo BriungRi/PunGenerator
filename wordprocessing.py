@@ -28,11 +28,17 @@ def findWord(toFind):
     sentences = sent_tokenize(articles)
     list = []
     for s in sentences:
-        if toFind in s:
+        if toFind.lower() in s.lower(): #simple finder but doesn't account if word like trump is in trumpet
             list.append(s)
+        # for w in word_tokenize(s):
+        #     if toFind == w:
+        #         list.append(s)
     return(list)
 
 def getSentence(word):
     generateArticle(word)
     listSentences = findWord(word)
-    return(listSentences[random.randint(0, len(listSentences))])
+    if listSentences:
+        return(listSentences[random.randint(0, len(listSentences)) - 1]) #length fix
+    else:
+        return ""

@@ -1,2 +1,2 @@
-import wordprocessing
-print(wordprocessing.getSentence("Blizzard"))
+import punengine
+print(generateSentences("Almighty"))
