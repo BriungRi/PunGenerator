@@ -1,5 +1,9 @@
 # PunGenerator
 Description History:
+1/28/16:
+-Added Flask support that works on a localhost
+-Put functions from dictionary.py into punengine.py in order to make less files
+
 1/23/16:
 -Removed NYT functionality since it was a bad resource for word definitions.
 -Replaced NYT functionality with Dictionary.com parsing to find syllables and
