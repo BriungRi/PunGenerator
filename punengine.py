@@ -1,4 +1,4 @@
-# import enchant
+import enchant
 import requests
 from nltk.stem import PorterStemmer
 
@@ -49,10 +49,10 @@ class PunEngine(object):
         ps = PorterStemmer()
         for w in getSyllables(self.word):
             similars.add(w.lower())
-            # enchanter = enchant.Dict("en_US")
-            # for w in enchanter.suggest(w):
-            #     if(len(w) > 2): #Deletes strings that are too short
-            #         similars.add(w.lower())
+            enchanter = enchant.Dict("en_US")
+            for w in enchanter.suggest(w):
+                if(len(w) > 2): #Deletes strings that are too short
+                    similars.add(w.lower())
         return similars
 
     def generateSentences(self):
