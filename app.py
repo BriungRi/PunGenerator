@@ -3,7 +3,7 @@ import punengine
 import random
 
 app = Flask(__name__)
-
+#TODO Add a default random pun generator for main page
 @app.route('/<string:word>')
 def send_text_file(word):
     pe = punengine.PunEngine(word)
@@ -12,4 +12,4 @@ def send_text_file(word):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
