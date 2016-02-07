@@ -1,7 +1,7 @@
 import enchant
 import requests
 from nltk.stem import PorterStemmer
-
+#TODO use synonym algorithm
 def isWord(word): #Checks if it is a word
     urlname = "http://dictionary.reference.com/browse/" + word
     page = requests.get(urlname).text
@@ -86,7 +86,7 @@ class PunEngine(object):
         arrayoutput = []
         i = 0
         while(i < len(self.originalSentences)):
-            data = self.originalSentences[i] + "\n" + self.newSentences[i] + "\n"
+            data = "ORIGINAL: " + self.originalSentences[i] + "\n" + "PUNNIFIED: " + self.newSentences[i] + "\n"
             arrayoutput.append(data)
             i += 1
         return arrayoutput

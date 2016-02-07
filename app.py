@@ -3,9 +3,13 @@ import punengine
 import random
 
 app = Flask(__name__)
-#TODO Add a default random pun generator for main page
+@app.route('/')
+def default_sentence():
+    pe = punengine.PunEngine("Pun")
+    sentences = pe.makeArray()
+    return str(sentences[random.randint(0, len(sentences))])
 @app.route('/<string:word>')
-def send_text_file(word):
+def generate_sentence(word):
     pe = punengine.PunEngine(word)
     sentences = pe.makeArray()
     return str(sentences[random.randint(0, len(sentences))])
