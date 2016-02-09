@@ -3,12 +3,12 @@ import punengine
 import random
 
 app = Flask(__name__)
-@app.route('/')
+@app.route('/punengine/api/v1.0/')
 def default_sentence():
     pe = punengine.PunEngine("Pun")
     sentences = pe.makeArray()
     return str(sentences[random.randint(0, len(sentences))])
-@app.route('/<string:word>')
+@app.route('/punengine/api/v1.0/<string:word>')
 def generate_sentence(word):
     pe = punengine.PunEngine(word)
     sentences = pe.makeArray()
