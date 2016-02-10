@@ -1,5 +1,10 @@
 # PunGenerator
 Description History:
+2/10/16:
+-Added data collection functionality for machine learning model building
+-Added POST function for data relay
+-Changed HOSTurl in order to host at brianvli.com
+-Added CSV for data collection TAGS:(original word, new word, sentenced used, binary(works or doesn't)
 1/28/16:
 -Added Flask support that works on a localhost
 -Put functions from dictionary.py into punengine.py in order to make less files
