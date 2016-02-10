@@ -14,9 +14,10 @@ def default_sentence():
 def generate_sentence(word):
     pe = punengine.PunEngine(word)
     sentences = pe.makeArray()
+    print("hi")
     return str(sentences[random.randint(0, len(sentences))])
 
-#test with: curl -i -H "Content-Type: application/json" -X POST -d '{"orig":"hi", "new":"hello", "sentence":"this is a sentence"}' http://0.0.0.0:5000/punengine/api/v1.0/data
+#test with: curl -i -H "Content-Type: application/json" -X POST -d '{"orig":"hi", "new":"hello", "sentence":"this is a sentence", "binary":"0"}' http://0.0.0.0:5000/punengine/api/v1.0/data
 @app.route('/punengine/api/v1.0/data', methods=['POST'])
 def add_data():
     if not request.json:
@@ -24,9 +25,9 @@ def add_data():
     data = {
         'orig' : request.json['orig'],
         'new' : request.json['new'],
-        'sentence' : request.json['sentence']
+        'sentence' : request.json['sentence'],
+        'binary' : request.json['binary']
     }
-    # csvrecord.test()
     csvrecord.record(data)
     return str(data)
 
