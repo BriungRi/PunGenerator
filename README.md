@@ -1,5 +1,5 @@
 # PunGenerator
-Description History:\n
+Description History:
 2/10/16:
 -Added data collection functionality for machine learning model building
 -Added POST function for data relay
