@@ -1,53 +1,25 @@
 import enchant
 import requests
+import random #for main method
+import dictionary
 from nltk.stem import PorterStemmer
+
 #TODO use synonym algorithm
-def isWord(word): #Checks if it is a word
-    urlname = "http://dictionary.reference.com/browse/" + word
-    page = requests.get(urlname).text
-    count = page.lower().count("misspell")
-    return(count < 40)
-
-def getSyllables(word): #Returns an array of the syllables
-    listSyllables = []
-    urlname = "http://dictionary.reference.com/browse/" + word
-    page = requests.get(urlname).text
-    first = page.find("data-syllable=") + 15
-    last = page.find("\"", first)
-    syllabalizedWord = page[first:last] + "·"
-    while(syllabalizedWord.find("·") > 0):
-        firstInstanceOf = syllabalizedWord.find("·")
-        listSyllables.append(syllabalizedWord[0:firstInstanceOf])
-        syllabalizedWord = syllabalizedWord[firstInstanceOf + 1:len(syllabalizedWord)]
-    return(listSyllables)
-
-
-def getExampleSentences(word): #Returns an array of example sentences
-    listSentences = []
-    urlname = "http://dictionary.reference.com/browse/" + word
-    page = requests.get(urlname).text
-    first = page.find("partner-example-text")
-    last = page.find("</p>", first)
-    while(first > 0):
-        listSentences.append(page[first + 23:last])
-        first = page.find("partner-example-text", last)
-        last = page.find("</p>", first)
-    return listSentences
 
 class PunEngine(object):
 
     def __init__(self, w):
         self.word = w
-        self.generateSentences()
+        self.generate_sentences()
         self.finalize()
 
     def __str__(self):
-        return str(self.makeJSON())
+        return str(self.make_JSON())
 
-    def generateSimilars(self):
+    def generate_similars(self):
         similars = set()
         ps = PorterStemmer()
-        for w in getSyllables(self.word):
+        for w in dictionary.get_syllables(self.word):
             similars.add(w.lower())
             enchanter = enchant.Dict("en_US")
             for w in enchanter.suggest(w):
@@ -55,11 +27,11 @@ class PunEngine(object):
                     similars.add(w.lower())
         return similars
 
-    def generateSentences(self):
+    def generate_sentences(self):
         self.originalSentences = []
-        listSimilars = self.generateSimilars()
+        listSimilars = self.generate_similars()
         for sim in listSimilars:
-            listTemp = getExampleSentences(sim)
+            listTemp = dictionary.get_example_sentences(sim)
             for sent in listTemp:
                 self.originalSentences.append(sent)
 
@@ -70,7 +42,7 @@ class PunEngine(object):
             end = i.find("</em>")
             self.newSentences.append(i[0:beg] + self.word.upper() + i[end + 5:])
 
-    def makeJSON(self):
+    def make_JSON(self):
         self.jsonoutput = []
         i = 0
         while(i < len(self.originalSentences)):
@@ -82,7 +54,7 @@ class PunEngine(object):
 
         return self.jsonoutput
 
-    def makeArray(self):
+    def make_array(self):
         arrayoutput = []
         i = 0
         while(i < len(self.originalSentences)):
@@ -90,3 +62,8 @@ class PunEngine(object):
             arrayoutput.append(data)
             i += 1
         return arrayoutput
+
+word = "cool"
+pe = PunEngine(word)
+sentences = pe.make_array()
+print(str(sentences[random.randint(0, len(sentences))]))

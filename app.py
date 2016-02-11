@@ -7,14 +7,13 @@ app = Flask(__name__)
 @app.route('/punengine/api/v1.0/')
 def default_sentence():
     pe = punengine.PunEngine("Pun")
-    sentences = pe.makeArray()
+    sentences = pe.make_array()
     return str(sentences[random.randint(0, len(sentences))])
 
 @app.route('/punengine/api/v1.0/<string:word>')
 def generate_sentence(word):
     pe = punengine.PunEngine(word)
-    sentences = pe.makeArray()
-    print("hi")
+    sentences = pe.make_array()
     return str(sentences[random.randint(0, len(sentences))])
 
 #test with: curl -i -H "Content-Type: application/json" -X POST -d '{"orig":"hi", "new":"hello", "sentence":"this is a sentence", "binary":"0"}' http://0.0.0.0:5000/punengine/api/v1.0/data
@@ -30,7 +29,6 @@ def add_data():
     }
     csvrecord.record(data)
     return str(data)
-
 
 
 if __name__ == '__main__':
