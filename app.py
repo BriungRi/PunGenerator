@@ -4,12 +4,12 @@ import csvrecord
 
 app = Flask(__name__)
 @app.route('/punengine/api/v1.0/')
-def default_sentence():
+def default_sim_sentence():
     pe = punengine.PunEngine("Pun", 0)
     return str(pe)
 
 @app.route('/punengine/api/v1.1/')
-def default_sentence():
+def default_syn_sentence():
     pe = punengine.PunEngine("Pun", 1)
     return str(pe)
 
