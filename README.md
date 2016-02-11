@@ -1,5 +1,12 @@
 # PunGenerator
-Description History:
+Update/Description History:
+
+2/10/16:
+-Added synonym pun generation algorithm
+-Deleted extraneous code to improve running time
+-Modified server to support different algorithms
+-Fixed naming conventions to match Python conventions
+
 2/10/16:
 -Added data collection functionality for machine learning model building
 -Added POST function for data relay
