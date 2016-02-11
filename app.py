@@ -6,8 +6,7 @@ app = Flask(__name__)
 @app.route('/punengine/api/v1.0/')
 def default_sentence():
     pe = punengine.PunEngine("Pun", 0)
-    sentences = pe.make_array()
-    return str(sentences[random.randint(0, len(sentences))])
+    return str(pe)
 
 @app.route('/punengine/api/v1.0/<string:word>')
 def get_similar_sentence(word):
