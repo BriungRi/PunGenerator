@@ -1,20 +1,23 @@
 from flask import Flask, request
 import punengine
-import random
 import csvrecord
 
 app = Flask(__name__)
 @app.route('/punengine/api/v1.0/')
 def default_sentence():
-    pe = punengine.PunEngine("Pun")
+    pe = punengine.PunEngine("Pun", 0)
     sentences = pe.make_array()
     return str(sentences[random.randint(0, len(sentences))])
 
 @app.route('/punengine/api/v1.0/<string:word>')
-def generate_sentence(word):
-    pe = punengine.PunEngine(word)
-    sentences = pe.make_array()
-    return str(sentences[random.randint(0, len(sentences))])
+def get_similar_sentence(word):
+    pe = punengine.PunEngine(word, 0) #mode = 0
+    return str(pe)
+
+@app.route('/punengine/api/v1.1/<string:word>')
+def get_synonym_sentence(word):
+    pe = punengine.PunEngine(word, 1) #mode = 1
+    return str(pe)
 
 #test with: curl -i -H "Content-Type: application/json" -X POST -d '{"orig":"hi", "new":"hello", "sentence":"this is a sentence", "binary":"0"}' http://0.0.0.0:5000/punengine/api/v1.0/data
 @app.route('/punengine/api/v1.0/data', methods=['POST'])
