@@ -8,6 +8,11 @@ def default_sentence():
     pe = punengine.PunEngine("Pun", 0)
     return str(pe)
 
+@app.route('/punengine/api/v1.1/')
+def default_sentence():
+    pe = punengine.PunEngine("Pun", 1)
+    return str(pe)
+
 @app.route('/punengine/api/v1.0/<string:word>')
 def get_similar_sentence(word):
     pe = punengine.PunEngine(word, 0) #mode = 0
