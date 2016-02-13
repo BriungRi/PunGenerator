@@ -28,7 +28,8 @@ class PunEngine(object):
     def get_random_word(self, list):
         new_list = []
         for i in list:
-            new_list.append(i)
+            if(i.find("%") < 0):
+                new_list.append(i)
         return new_list[random.randint(0, len(new_list) - 1)]
 
     def finalize(self):
