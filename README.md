@@ -1,4 +1,11 @@
 # PunGenerator
+
+Run on a server by using:
+```
+python3 app.py
+```
+The server will be available at localhost:5000 
+
 Update/Description History:
 
 2/10/16:
